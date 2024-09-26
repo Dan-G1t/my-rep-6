@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %} 
+ 
+{% load custom_filters %}
+
+{% block title %}
+Posts
+{% endblock title %}
+ 
+{% block content %}
+    <h1>Новости</h1>
+    <hr>
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            {% for post in posts %}
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body p-4">
+                        <a class="text-decoration-none link-dark stretched-link" href="/news/{{ post.id }}">
+                            <h5 class="card-title mb-3">{{ post.title|censor }}</h5>
+                        </a>
+                        <p class="card-text mb-0">{{ post.text|truncatechars:21|censor }}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <div class="small">
+                                    <div class="text-muted">{{ post.creation_date|date:"d.m.Y H:i" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
